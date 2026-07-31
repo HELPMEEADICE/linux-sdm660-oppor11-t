@@ -118,7 +118,7 @@ static irqreturn_t nvt_ts_irq(int irq, void *dev_id)
 
 		slot = touch[0] >> NVT_TS_TOUCH_SLOT_SHIFT;
 		if (slot < 1 || slot > data->max_touches) {
-			dev_dbg(dev, "slot %d out of range, ignoring\n", slot);
+			dev_warn_once(dev, "slot %d out of range, ignoring\n", slot);
 			continue;
 		}
 
@@ -276,7 +276,7 @@ static int nvt_ts_initial_power_on_and_register_inputdev(struct nvt_ts_data *dat
 		return -EIO;
 	}
 
-	dev_info(dev, "Detected %dx%d touchscreen with %d max touches\n",
+	dev_dbg(dev, "Detected %dx%d touchscreen with %d max touches\n",
 		width, height, data->max_touches);
 
 	if (data->buf[NVT_TS_PARAMS_MAX_BUTTONS])
